@@ -5,6 +5,12 @@ NVIDIA Audio2Face and Audio2Emotion process the game's existing dialogue offline
 a small native ASI plays the resulting animation through enhanced UE3 morph targets.
 The original actors' dialogue audio is unchanged. No AI inference runs during gameplay.
 
+> **AI-assisted development: OpenAI Codex was used extensively throughout this project.**
+> Codex contributed substantially to writing and revising code, investigating LE1
+> integration, debugging problems and developing the offline animation pipeline.
+> CornCorny provided project direction, creative decisions and in-game testing.
+> NVIDIA Audio2Face/Audio2Emotion generated the facial animation offline on a local GPU.
+
 **Current developer prototype: 0.2.7.** This is an opening-scene demonstration,
 not a finished overhaul of the whole game.
 
@@ -59,9 +65,7 @@ Native runtime source is included. GPU authoring scripts are research tooling:
 they still depend on intermediate data and separately obtained game/model assets.
 The native build is standalone; the full authoring workspace is not bundled.
 
-Created with NVIDIA Audio2Face/Audio2Emotion and substantial OpenAI Codex assistance
-for programming, investigation and iteration, with human direction and gameplay
-review. Local GPU inference, numerical fitting and preview rendering were used.
+Local GPU inference, numerical fitting and preview rendering were used.
 This is an independent fan project, not affiliated with EA, BioWare or NVIDIA.
 
 Feedback on facial quality, transitions, rendering safety and a reusable human/asari
