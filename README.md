@@ -14,6 +14,17 @@ The original actors' dialogue audio is unchanged. No AI inference runs during ga
 **Current developer prototype: 0.2.7.** This is an opening-scene demonstration,
 not a finished overhaul of the whole game.
 
+## How it works
+
+- **Use the original dialogue.** The game's prerecorded English dialogue is extracted for offline authoring. The game still plays the original actors' audio unchanged.
+- **Estimate emotion on the GPU.** NVIDIA Audio2Emotion analyses the delivery and supplies emotion signals, which are smoothed and moderated before use.
+- **Generate facial motion.** NVIDIA Audio2Face uses the dialogue and emotion signals to generate changing lip, jaw, cheek and brow movements.
+- **Adapt the motion to LE1's faces.** GPU fitting transfers that movement onto custom UE3 morph targets: shapes that deform parts of the existing heads while preserving their neutral appearance.
+- **Store the finished animation.** The motion is smoothed and bounded, then saved as timed weights for 48 facial controls in `.mefc` files. These files contain animation data, not audio or AI models.
+- **Match it to the live dialogue.** A small native ASI plugin identifies the supported speaker and exact dialogue line, selects its clip and samples it using the game's dialogue audio clock.
+- **Preserve the rest of the performance.** Selected vanilla facial controls blend into the custom animation and return afterward. Eyes/gaze, blinking, head/body motion, gestures, cameras and cinematic timing remain controlled by the game.
+- **Play back without the AI stack.** Players install the plugin, morph assets and precomputed clips. All NVIDIA inference happens during authoring; the current prototype covers only the scoped opening Normandy conversation.
+
 ## Download and installation
 
 [Download the 0.2.7 developer package](https://github.com/CornCorny/LE1-Audio2Face-FacialAnimationOverhaul/releases/download/v0.2.7/LE1-Audio2Face-FacialAnimationOverhaul-0.2.7-developer.zip)
