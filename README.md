@@ -14,10 +14,6 @@ The original actors' dialogue audio is unchanged. No AI inference runs during ga
 **Current developer prototype: 0.2.7.** This is an opening-scene demonstration,
 not a finished overhaul of the whole game.
 
-## Demonstration
-
-[![Watch the Vanilla vs Audio2Face facial animation comparison on YouTube](https://img.youtube.com/vi/QflUUQqflEo/hqdefault.jpg)](https://www.youtube.com/watch?v=QflUUQqflEo)
-
 [Watch the Vanilla vs Audio2Face comparison on YouTube](https://www.youtube.com/watch?v=QflUUQqflEo) — opening Normandy scene with default male Shepard, Joker and Kaidan.
 
 ## How it works
