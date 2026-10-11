@@ -16,7 +16,7 @@ not a finished overhaul of the whole game.
 
 ## Download and installation
 
-[Download the 0.2.7 developer package](https://github.com/CornCorny/LE1-Audio2Face-FacialAnimationOverhaul/raw/refs/heads/main/downloads/LE1-Audio2Face-FacialAnimationOverhaul-0.2.7-developer.zip)
+[Download the 0.2.7 developer package](https://github.com/CornCorny/LE1-Audio2Face-FacialAnimationOverhaul/releases/download/v0.2.7/LE1-Audio2Face-FacialAnimationOverhaul-0.2.7-developer.zip)
 
 Read [installation and removal](docs/INSTALL.md) first. This is a **manual-install
 developer build**, not yet a ME3Tweaks Mod Manager library installer. ME3Tweaks
