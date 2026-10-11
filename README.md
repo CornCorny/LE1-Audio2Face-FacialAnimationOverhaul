@@ -1,6 +1,6 @@
 # LE1 Audio2Face Facial Animation Overhaul
 
-An experimental facial-animation mod for **Mass Effect Legendary Edition 1**.
+An experimental facial-animation mod for **Mass Effect 1 Legendary Edition**.
 NVIDIA Audio2Face and Audio2Emotion process the game's existing dialogue offline;
 a small native ASI plays the resulting animation through enhanced UE3 morph targets.
 The original actors' dialogue audio is unchanged. No AI inference runs during gameplay.
