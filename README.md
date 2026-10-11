@@ -16,7 +16,7 @@ not a finished overhaul of the whole game.
 
 ## Demonstration
 
-Vanilla on the left; Audio2Face on the right. These subtitled comparisons loop without sound.
+Vanilla on the left - FacialAnimationOverhaul on the right.
 
 ### Shepard
 
