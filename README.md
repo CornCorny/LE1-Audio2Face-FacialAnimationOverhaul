@@ -14,6 +14,18 @@ The original actors' dialogue audio is unchanged. No AI inference runs during ga
 **Current developer prototype: 0.2.7.** This is an opening-scene demonstration,
 not a finished overhaul of the whole game.
 
+## Demonstration
+
+Vanilla on the left; Audio2Face on the right. These subtitled comparisons loop without sound.
+
+### Shepard
+
+![Shepard saying "They don't send Spectres on shakedown runs." — Vanilla vs Audio2Face](docs/media/Shepard-Shakedown-Vanilla-vs-Audio2Face-Continuous.gif)
+
+### Joker
+
+![Joker saying "Besides, Spectres are trouble. I don't like having him on board. Call me paranoid." — Vanilla vs Audio2Face](docs/media/Joker-Spectres-Vanilla-vs-Audio2Face-Continuous.gif)
+
 [Watch the Vanilla vs Audio2Face comparison on YouTube](https://www.youtube.com/watch?v=QflUUQqflEo) — opening Normandy scene with default male Shepard, Joker and Kaidan.
 
 ## How it works
