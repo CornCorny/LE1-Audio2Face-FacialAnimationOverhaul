@@ -1,0 +1,20 @@
+{
+  "Version": "0.2.7",
+  "StandaloneConfigure": "passed with fresh pinned upstream SDK fetch",
+  "StandaloneBuild": "passed: Visual Studio 2022, MSVC 19.44, Windows x64 Release",
+  "RegressionTestsPassed": 11,
+  "RegressionTestsFailed": 0,
+  "RuntimeImplementationFilesByteIdenticalToAcceptedArchive": 30,
+  "RuntimeGameFilesByteIdenticalToAcceptedArchive": 36,
+  "NewGameplayTestPerformed": false,
+  "SourceExportChanges": [
+    "SDK dependency acquisition and test-data paths in CMake",
+    "Sanitized historical binding fixture",
+    "Local path configuration in exported authoring helpers"
+  ],
+  "Warnings": [
+    "Upstream generated SDK emitted cover-replication buffer warnings",
+    "Existing Bridge.cpp emitted an alignment warning; native implementation was not changed"
+  ],
+  "AuthoringReproducibility": "Research scripts need separately obtained model/game assets and unbundled intermediate baselines"
+}
