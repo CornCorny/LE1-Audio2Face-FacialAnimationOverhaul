@@ -17,8 +17,12 @@ not established. No tongue deformation is implemented.
 `Bridge.cpp` restricts activation to conversation resource 205 and
 `nor10_joker_D.nor10_joker_dlg`, the eligible actor/head and an exact voiced-line
 identity from `GeneratedScene.hpp`. Female-player conversations are excluded.
-`LineBinding.hpp` contains the head/rig allowlist. The supported NPC path uses
-the shared Average base; the shipped historical NPC packages are retained.
+`LineBinding.hpp` validates live conversation participant roles instead of fixed NPC
+pawn package paths. `GeneratedHeadRigs.hpp` catalogs authored head rigs. Selection
+checks loaded BaseSkelMesh identity, skeleton/LOD structure and channel availability.
+Vanilla NPC geometry and the tested Community Patch Kaidan geometry have matching
+private rigs; this does not make arbitrary heads automatically compatible.
+Inherited material parameters are preserved with leaf overrides taking precedence.
 
 `FacialClip.hpp` validates expected schema, file hash, dimensions, timestamps,
 bounds and neutral endpoints. It samples using the dialogue audio clock with

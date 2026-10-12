@@ -17,15 +17,15 @@ CMake fetches LExSDKv2 from https://github.com/llamathings/LExSDKv2 at commit
 The upstream SDK is not bundled or relicensed; see NOTICE.md and its README.
 
 Output: `build/src/asi/single-line-bridge/Release/MEFSingleLineBridge.asi`.
-Keep it with the exact 0.2.7 clips and PCC packages. The published runtime binary
+Keep it with the exact 0.2.8 clips and PCC packages. The published runtime binary
 is the gameplay-tested original; recompilation changes binary metadata and is
 not claimed byte-identical to that binary.
 
-All eleven existing tests are included. The loader test loads the ASI into a test
+All twelve existing tests are included. The loader test loads the ASI into a test
 process and checks rejection of an unsupported executable. It does not launch the
 game or prove gameplay compatibility. The clip test reads all thirty included
 animation fixtures and checks their generated hashes. The historical binding
 fixture retains only the fields needed by that regression.
 
 Only dependency/test-data paths were changed for this standalone export. Runtime
-C++ and generated runtime metadata are unchanged from the accepted 0.2.7 archive.
+C++ and generated runtime metadata are unchanged from the accepted 0.2.8 archive.

@@ -1,29 +1,34 @@
-# Validation status — 0.2.7
+# Validation status — 0.2.8
 
-The original candidate passed eleven CTests; four 48-target morph PCC round trips;
-all thirty clips over ten head LODs using the serialized sparse morph data;
-combined-displacement, protected-zero-displacement and preservation checks; and
-player DLL import inspection with no AI runtime dependency.
+## LE1 Community Patch support
 
-The Sync8 review covered fifteen recorded speeches (Joker 10, Kaidan 3, Shepard 2).
-Logs reported 7274 custom applications and 7283 ownership calls/restores, with no
-critical/restoration/activation/handover faults. All 36 installed file hashes
-matched the accepted build. Reviewed NPC rendering was clean and playback reached
-gameplay. One withheld pose/two refusal-counter increments occurred at Kaidan's
-final-line end around an LOD change, after zero weights, followed by clean release.
-This was not a speaking activation failure. One Joker map rebuild restored and
-revalidated safely.
+The opening Normandy scene was tested with **LE1 Community Patch 2.0**, default
+male Shepard, Joker and Kaidan. The recorded route selected **I agree**, then
+**You made him mad**, and continued into gameplay and a later conversation.
+All fifteen recorded intro speeches activated (Joker 10, Kaidan 3, Shepard 2).
+Reviewed NPC rendering was clean, without the earlier persistent colour corruption.
 
-Visual improvement is subjective and uneven. Joker shows the clearest articulation;
-Kaidan's changes can be subtle and a brief restrained entry expression remains.
-Exact recording A/V offset and phoneme accuracy have not been measured independently.
+Logs reported 6461 custom morph applications and 6469 ownership calls matched by
+6469 restorations. No withheld poses, activation refusals, critical faults,
+restoration failures or handover refusals were recorded. One Joker map rebuild
+was restored, revalidated and reapplied. All 37 installed mod files matched the
+candidate. Playback released at the scene boundary; later dialogue stayed vanilla.
+These are observations of one recorded run, not proof of universal reliability.
 
-Not yet established: other four Shepard alternatives in gameplay, all unchosen
-NPC branches, repeated skip/restart, frame-rate combinations, longer gameplay,
-other mods/storefronts and broader human/asari coverage. Offline interpolation tests
-at varying frame rates are not a substitute for these live checks. Clay GPU
-previews omit final shading and vanilla contributions and cannot prove live safety.
+Twelve native regression tests pass. The thirty clips and five existing private
+PCCs are byte-identical to 0.2.7. The additional 48-target head rig passed package
+round trips and local CUDA checks across all thirty clips, including zero protected
+displacement. Twenty-four offline OptiX preview frames were reviewed. Offline
+previews do not establish gameplay rendering or synchronization by themselves.
 
-Useful reports: exact build/storefront, default/custom/female player, subtitle/line,
-choices, frame rate, other installed mods, whether the effect persists after the
-scene, and a short recording. Attach a reviewed/redacted runtime log when useful.
+The waveform checks support dialogue identity and alignment, but recording A/V
+offset and frame-accurate phoneme synchronization have not been independently
+calibrated. Facial quality remains subjective and Kaidan's changes are restrained.
+
+Unvalidated: the four unchosen Shepard replies and other dialogue branches in
+gameplay, skips/restarts, frame-rate combinations, extended sessions, other
+storefront builds, other mods, custom/female Shepard and broader human/asari
+coverage. No AI inference runs during gameplay. Original game audio is unchanged.
+
+For reports include the build, dialogue choice, other installed mods and a short
+recording. Review/redact runtime logs for private paths before sharing them.

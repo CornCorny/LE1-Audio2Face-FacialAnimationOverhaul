@@ -29,11 +29,21 @@ int main(int argc, char** argv) {
         Check(!MatchesLineIds(line,205,line.entry+1,line.stringRef,line.exportId,line.cue), "other entry rejected");
         Check(!MatchesLineIds(line,205,line.entry,line.stringRef,line.exportId+1,line.cue), "other export rejected");
         Check(!MatchesLineIds(line,205,line.entry,line.stringRef,line.exportId,L"nor10_joker_N.VO_65217_F"), "other voice rejected");
-        Check(!MatchRig(line,L"BIOG_TUR_HED.Nihlus"), "unrelated head refused");
     }
-    Check(!MatchRig(TestLines[0],TestRigs[3].mesh), "shared NPC base never used for custom Shepard");
-    Check(MatchRig(TestLines[1],TestRigs[1].mesh) && MatchRig(TestLines[2],TestRigs[2].mesh), "specific NPC heads");
-    Check(MatchRig(TestLines[1],TestRigs[3].mesh) && MatchRig(TestLines[2],TestRigs[3].mesh), "serialized NPC base heads");
-    Check(!MatchRig(TestLines[1],TestRigs[2].mesh) && !MatchRig(TestLines[2],TestRigs[1].mesh), "cross-character rig rejected");
+    int actual=0,other=0;
+    Check(CompatibleParticipant(L"hench_pilot",L"hench_pilot",false,true,true),"participant binding needs no pawn package path");
+    Check(!CompatibleParticipant(L"hench_pilot",L"nor10_nihlus",false,true,true),"wrong participant/species role rejected");
+    Check(!CompatibleParticipant(L"hench_pilot",L"hench_pilot",true,true,true),"player cannot impersonate NPC line");
+    Check(!CompatibleParticipant(L"hench_pilot",L"hench_pilot",false,false,true),"nonparticipant actor rejected");
+    Check(!CompatibleParticipant(L"hench_pilot",L"hench_pilot",false,true,false),"resolved pointer disagreement rejected");
+    for(const auto& rig:TestRigs) {
+        Check(CompatibleRig(rig,rig.playerOnly,rig.bones,rig.lods,&actual,&actual,48,48),"authored base mesh relationship");
+        Check(!CompatibleRig(rig,rig.playerOnly,rig.bones,rig.lods,&actual,&other,48,48),"same structure with different vertex asset refused");
+        Check(!CompatibleRig(rig,rig.playerOnly,rig.bones,rig.lods,&actual,nullptr,48,48),"unresolved base refused");
+        Check(!CompatibleRig(rig,rig.playerOnly,rig.bones+1,rig.lods,&actual,&actual,48,48),"changed skeleton refused");
+        Check(!CompatibleRig(rig,rig.playerOnly,rig.bones,rig.lods+1,&actual,&actual,48,48),"changed LOD layout refused");
+        Check(!CompatibleRig(rig,rig.playerOnly,rig.bones,rig.lods,&actual,&actual,38,48),"old channel schema refused");
+        Check(!CompatibleRig(rig,!rig.playerOnly,rig.bones,rig.lods,&actual,&actual,48,48),"player coverage remains default male only");
+    }
     std::puts("PASS: ten Try1 samples accept corrected identity; unrelated lines/voices/heads rejected. Live engine binding remains untested.");
 }

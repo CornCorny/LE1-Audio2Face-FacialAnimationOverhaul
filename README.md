@@ -11,8 +11,10 @@ The original actors' dialogue audio is unchanged. No AI inference runs during ga
 > CornCorny provided project direction, creative decisions and in-game testing.
 > NVIDIA Audio2Face/Audio2Emotion generated the facial animation offline on a local GPU.
 
-**Current developer prototype: 0.2.7.** This is an opening-scene demonstration,
+**Current developer prototype: 0.2.8.** This is an opening-scene demonstration,
 not a finished overhaul of the whole game.
+
+**LE1 Community Patch 2.0 support:** verified in the opening Normandy scene with default male Shepard, Joker and Kaidan. Other mod combinations remain unvalidated.
 
 ## Demonstration
 
@@ -41,7 +43,7 @@ Vanilla on the left - FacialAnimationOverhaul on the right.
 
 ## Download and installation
 
-[Download the 0.2.7 developer package](https://github.com/CornCorny/LE1-Audio2Face-FacialAnimationOverhaul/releases/download/v0.2.7/LE1-Audio2Face-FacialAnimationOverhaul-0.2.7-developer.zip)
+[Download the 0.2.8 developer package](https://github.com/CornCorny/LE1-Audio2Face-FacialAnimationOverhaul/releases/download/v0.2.8/LE1-Audio2Face-FacialAnimationOverhaul-0.2.8-developer.zip)
 
 Read [installation and removal](docs/INSTALL.md) first. This is a **manual-install
 developer build**, not yet a ME3Tweaks Mod Manager library installer. ME3Tweaks
@@ -71,7 +73,7 @@ reviewed NPC rendering and no logged restoration/activation failures. Joker's
 changes are most apparent; some Kaidan line-start expression settling remains.
 All thirty assets pass offline checks, but not every dialogue variation has been
 visually tested. Skipping/restarting, other frame rates, extended play and other
-mods still need compatibility testing. This is not a universal human/asari solution.
+mods beyond the tested LE1 Community Patch 2.0 setup still need compatibility testing. This is not a universal human/asari solution.
 
 **Initial implementation scope:** opening Normandy scene, default male Shepard,
 Joker and Kaidan only. Do not expand until this sequence is fully working,
@@ -80,7 +82,7 @@ installable mod. Broader human/asari coverage is a future design goal.
 
 ## For developers
 
-- [Build the native runtime and run its eleven regression tests](docs/BUILD.md)
+- [Build the native runtime and run its twelve regression tests](docs/BUILD.md)
 - [Architecture, clip format and rendering lessons](docs/ARCHITECTURE.md)
 - [Offline authoring source and current reproducibility limits](docs/AUTHORING.md)
 - [Validation and useful feedback](docs/VALIDATION.md)
@@ -96,3 +98,4 @@ This is an independent fan project, not affiliated with EA, BioWare or NVIDIA.
 Feedback on facial quality, transitions, rendering safety and a reusable human/asari
 rig pipeline is welcome. Please include the build, dialogue choice and a short
 recording when reporting a problem; inspect logs for personal information first.
+

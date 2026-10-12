@@ -29,14 +29,13 @@ int main(int argc,char** argv){
     for(size_t i=0;i<std::size(SceneLines);++i){
         auto const& line=SceneLines[i];
         Check(MatchesSceneLineIds(line,205,line.entry,line.stringRef,line.exportId,line.cue),"scene identity");
-        if(!*line.pawn){
+        if(!*line.participantTag){
             const int parentEntry=line.entry<20 ? 8 : 18;
             Check(MatchesSceneLineIds(line,205,parentEntry,line.stringRef,line.exportId,line.cue),"all Shepard voices accepted with parent NPC entry index");
             Check(!MatchesSceneLineIds(line,205,parentEntry,line.stringRef,line.exportId+1,line.cue),"wrong live reply metadata refused");
         }else Check(!MatchesSceneLineIds(line,205,line.entry+1,line.stringRef,line.exportId,line.cue),"wrong NPC entry refused");
         Check(!MatchesLineIds(line,205,line.entry,line.stringRef,line.exportId,L"nor10_joker_N.VO_65217_F"),"female voice excluded");
-        Check(!MatchRig(line,L"BIOG_TUR_HED.Nihlus"),"turian head excluded");
-        if(!*line.pawn){++shepard;Check(MatchRig(line,TestRigs[0].mesh)&&!MatchRig(line,TestRigs[3].mesh),"default male only");}
+        if(!*line.participantTag){++shepard;Check(TestRigs[0].playerOnly&&!TestRigs[3].playerOnly,"default male coverage profile");}
         else if(std::wstring_view(line.actor)==L"Joker"){++joker;Check(line.entry!=0&&line.entry!=24,"re-entry scenes excluded");}
         else ++kaidan;
         auto path=std::filesystem::path(argv[1])/(L"VO_"+std::to_wstring(line.stringRef)+L"_M.mefc");

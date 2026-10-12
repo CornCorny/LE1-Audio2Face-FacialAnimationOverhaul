@@ -1,5 +1,5 @@
 {
-  "Version": "0.2.7",
+  "Version": "0.2.8",
   "Conversation": "nor10_joker_D.nor10_joker_dlg",
   "ConversationResourceId": 205,
   "Locale": "INT",
@@ -15,7 +15,8 @@
       "Clip": "VO_1502_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 180565,
-      "Duration": 11.2853125
+      "Duration": 11.2853125,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -27,7 +28,8 @@
       "Clip": "VO_65198_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 14626,
-      "Duration": 0.914125
+      "Duration": 0.914125,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Kaidan",
@@ -39,7 +41,8 @@
       "Clip": "VO_102169_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2",
       "Samples": 52955,
-      "Duration": 3.3096875
+      "Duration": 3.3096875,
+      "SpeakerTag": "hench_humanmale"
     },
     {
       "Actor": "Joker",
@@ -51,7 +54,8 @@
       "Clip": "VO_101470_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 139654,
-      "Duration": 8.728375
+      "Duration": 8.728375,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -63,7 +67,8 @@
       "Clip": "VO_102170_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 77650,
-      "Duration": 4.853125
+      "Duration": 4.853125,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Kaidan",
@@ -75,7 +80,8 @@
       "Clip": "VO_65199_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2",
       "Samples": 90672,
-      "Duration": 5.667
+      "Duration": 5.667,
+      "SpeakerTag": "hench_humanmale"
     },
     {
       "Actor": "Joker",
@@ -87,7 +93,8 @@
       "Clip": "VO_65200_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 78397,
-      "Duration": 4.8998125
+      "Duration": 4.8998125,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -99,7 +106,8 @@
       "Clip": "VO_65201_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 39872,
-      "Duration": 2.492
+      "Duration": 2.492,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -111,7 +119,8 @@
       "Clip": "VO_102171_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 103979,
-      "Duration": 6.4986875
+      "Duration": 6.4986875,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Kaidan",
@@ -123,7 +132,8 @@
       "Clip": "VO_65202_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2",
       "Samples": 19989,
-      "Duration": 1.2493125
+      "Duration": 1.2493125,
+      "SpeakerTag": "hench_humanmale"
     },
     {
       "Actor": "Joker",
@@ -135,7 +145,8 @@
       "Clip": "VO_2718_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 76827,
-      "Duration": 4.8016875
+      "Duration": 4.8016875,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -147,7 +158,8 @@
       "Clip": "VO_3471_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 65971,
-      "Duration": 4.1231875
+      "Duration": 4.1231875,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -159,7 +171,8 @@
       "Clip": "VO_145136_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 13855,
-      "Duration": 0.8659375
+      "Duration": 0.8659375,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -171,7 +184,8 @@
       "Clip": "VO_148773_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 43689,
-      "Duration": 2.7305625
+      "Duration": 2.7305625,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Kaidan",
@@ -183,7 +197,8 @@
       "Clip": "VO_2723_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2",
       "Samples": 22743,
-      "Duration": 1.4214375
+      "Duration": 1.4214375,
+      "SpeakerTag": "hench_humanmale"
     },
     {
       "Actor": "Joker",
@@ -195,7 +210,8 @@
       "Clip": "VO_2721_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 55633,
-      "Duration": 3.4770625
+      "Duration": 3.4770625,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -207,7 +223,8 @@
       "Clip": "VO_148774_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 58490,
-      "Duration": 3.655625
+      "Duration": 3.655625,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Kaidan",
@@ -219,7 +236,8 @@
       "Clip": "VO_148775_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2",
       "Samples": 25159,
-      "Duration": 1.5724375
+      "Duration": 1.5724375,
+      "SpeakerTag": "hench_humanmale"
     },
     {
       "Actor": "Joker",
@@ -231,7 +249,8 @@
       "Clip": "VO_65190_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 72711,
-      "Duration": 4.5444375
+      "Duration": 4.5444375,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -243,7 +262,8 @@
       "Clip": "VO_147242_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 58649,
-      "Duration": 3.6655625
+      "Duration": 3.6655625,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -255,7 +275,8 @@
       "Clip": "VO_147243_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 35439,
-      "Duration": 2.2149375
+      "Duration": 2.2149375,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -267,7 +288,8 @@
       "Clip": "VO_101556_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 24266,
-      "Duration": 1.516625
+      "Duration": 1.516625,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -279,7 +301,8 @@
       "Clip": "VO_101557_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 51427,
-      "Duration": 3.2141875
+      "Duration": 3.2141875,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Joker",
@@ -291,7 +314,8 @@
       "Clip": "VO_101558_M.mefc",
       "Pawn": "BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0",
       "Samples": 91183,
-      "Duration": 5.6989375
+      "Duration": 5.6989375,
+      "SpeakerTag": "hench_pilot"
     },
     {
       "Actor": "Shepard",
@@ -303,7 +327,8 @@
       "Clip": "VO_65217_M.mefc",
       "Pawn": "",
       "Samples": 35456,
-      "Duration": 2.216
+      "Duration": 2.216,
+      "SpeakerTag": ""
     },
     {
       "Actor": "Shepard",
@@ -315,7 +340,8 @@
       "Clip": "VO_102174_M.mefc",
       "Pawn": "",
       "Samples": 25731,
-      "Duration": 1.6081875
+      "Duration": 1.6081875,
+      "SpeakerTag": ""
     },
     {
       "Actor": "Shepard",
@@ -327,7 +353,8 @@
       "Clip": "VO_65220_M.mefc",
       "Pawn": "",
       "Samples": 41109,
-      "Duration": 2.5693125
+      "Duration": 2.5693125,
+      "SpeakerTag": ""
     },
     {
       "Actor": "Shepard",
@@ -339,7 +366,8 @@
       "Clip": "VO_148776_M.mefc",
       "Pawn": "",
       "Samples": 47588,
-      "Duration": 2.97425
+      "Duration": 2.97425,
+      "SpeakerTag": ""
     },
     {
       "Actor": "Shepard",
@@ -351,7 +379,8 @@
       "Clip": "VO_53647_M.mefc",
       "Pawn": "",
       "Samples": 54659,
-      "Duration": 3.4161875
+      "Duration": 3.4161875,
+      "SpeakerTag": ""
     },
     {
       "Actor": "Shepard",
@@ -363,7 +392,8 @@
       "Clip": "VO_148778_M.mefc",
       "Pawn": "",
       "Samples": 13291,
-      "Duration": 0.8306875
+      "Duration": 0.8306875,
+      "SpeakerTag": ""
     }
   ]
 }

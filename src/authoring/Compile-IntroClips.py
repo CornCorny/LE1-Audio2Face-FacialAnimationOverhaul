@@ -39,7 +39,7 @@ for x in m['Lines']:
     header=struct.pack('<6IQ',0x4346454d,1,countchannels,len(times),16000,samples,schema)
     data=header+b''.join(struct.pack('<I',int(t))+w.astype('<f4').tobytes() for t,w in zip(times,weights))
     dest=clips/x['Clip'];dest.write_bytes(data);h=fnv(data);hashes.append(h)
-    pawn=x['Pawn'];lines.append(f'    {{L"{x["Actor"]}", {x["Index"]}, {x["StringRef"]}, {x["ExportId"]}, L"{x["Cue"]}", L"{pawn}", {x["Duration"]:.7f}f}},')
+    pawn=x['SpeakerTag'];lines.append(f'    {{L"{x["Actor"]}", {x["Index"]}, {x["StringRef"]}, {x["ExportId"]}, L"{x["Cue"]}", L"{pawn}", {x["Duration"]:.7f}f}},')
     report.append({'Actor':x['Actor'],'StringRef':x['StringRef'],'Frames':len(times),'Channels':countchannels,'Duration':x['Duration'],'MaxWeight':float(weights.max()),'NonzeroChannels':int((weights.max(0)>.001).sum()),'SHA256':hashlib.sha256(data).hexdigest(),'FNV64':f'{h:016x}','SourceCSV_SHA256':hashlib.sha256(path.read_bytes()).hexdigest(),'AudioSHA256':hashlib.sha256((out/x['Audio']).read_bytes()).hexdigest()})
 text='#pragma once\n// Generated from exact opening-scene graph and local GPU outputs.\n'
 text+='inline constexpr TestLine SceneLines[] = {\n'+'\n'.join(lines)+'\n};\n'

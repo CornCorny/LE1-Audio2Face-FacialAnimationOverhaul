@@ -40,7 +40,7 @@ foreach($kind in @('Entry','Reply')){
             continue
         }
         if(!$cue -or $cue.ClassName -ne 'SoundCue' -or !$wave -or $wave.ClassName -ne 'SoundNodeWave'){throw "Missing exact voice exports: $kind $i $id"}
-        $lines+= [ordered]@{Actor=$actor;Kind=$kind;Index=$i;StringRef=$id;ExportId=$x.nExportID;Cue=$cue.InstancedFullPath;WaveIndex=$wave.UIndex;Text=$texts[$id];Audio="audio/VO_${id}_M.wav";Clip="VO_${id}_M.mefc";Pawn=$(if($actor -eq 'Joker'){'BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_0'}elseif($actor -eq 'Kaidan'){'BIOA_NOR10_01_DS1.TheWorld.PersistentLevel.BioPawn_2'}else{''})}
+        $lines+= [ordered]@{Actor=$actor;Kind=$kind;Index=$i;StringRef=$id;ExportId=$x.nExportID;Cue=$cue.InstancedFullPath;WaveIndex=$wave.UIndex;Text=$texts[$id];Audio="audio/VO_${id}_M.wav";Clip="VO_${id}_M.mefc";SpeakerTag=$(if($kind -eq 'Reply'){''}else{$tag})}
     }
 }
 $streaming=@($lines | ForEach-Object {(Get-ExportRecord $p.GetUExport($_.WaveIndex)).Properties.BioStreamingData.Index} | Sort-Object -Unique)

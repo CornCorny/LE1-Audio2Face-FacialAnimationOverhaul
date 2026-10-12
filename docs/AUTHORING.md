@@ -32,3 +32,10 @@ their paths and inputs must be reviewed before running. No authoring script is a
 installer. The packaged precomputed assets allow runtime work without regenerating
 the NVIDIA outputs. Next work should parameterize inputs and consolidate the
 successful stages, not rerun all failed historical experiments.
+
+0.2.8 adds reusable compatible-head tooling: `Transfer-CompatibleHeadGPU.py`,
+`Preview-CompatibleHeadGPU.py`, `Render-CompatibleHeadPreview.py`,
+`Inspect-HeadCompatibility.ps1`, `Build-TransferredHeadMorphs.ps1` and
+`Generate-HeadRigCatalog.ps1`. It transfers an existing semantic/spatial basis onto
+compatible geometry and validates protected regions. It still needs intermediate
+artifacts; it is not automatic support for every human or asari head.

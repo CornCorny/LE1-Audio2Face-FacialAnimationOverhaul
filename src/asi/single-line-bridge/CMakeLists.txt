@@ -8,8 +8,7 @@ set(LESDK_WITH_LE3 OFF CACHE BOOL "" FORCE)
 set(LESDK_WITH_LEL OFF CACHE BOOL "" FORCE)
 set(LESDK_WITH_SAMPLES OFF CACHE BOOL "" FORCE)
 set(LESDK_WITH_TESTS OFF CACHE BOOL "" FORCE)
-
-# Dependency stays upstream; do not redistribute the generated UE3 SDK here.
+# Dependency stays upstream;do not redistribute the generated UE3 SDK here.
 set(LESDK_SOURCE_DIR "" CACHE PATH "Optional existing LExSDKv2 checkout")
 if(NOT LESDK_SOURCE_DIR)
     include(FetchContent)
@@ -51,3 +50,5 @@ add_test(NAME BridgeFaceRoutingTests COMMAND BridgeFaceRoutingTests)
 
 add_executable(BridgeFaceTransitionTests FaceTransitionTests.cpp)
 add_test(NAME BridgeFaceTransitionTests COMMAND BridgeFaceTransitionTests)
+add_executable(BridgeFaceParameterTests FaceParameterTests.cpp)
+add_test(NAME BridgeFaceParameterTests COMMAND BridgeFaceParameterTests)

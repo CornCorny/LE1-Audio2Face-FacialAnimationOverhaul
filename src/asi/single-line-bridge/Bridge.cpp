@@ -27,10 +27,11 @@
 #include "FaceRebuildNative.hpp"
 #include "FaceRouting.hpp"
 #include "FaceTransition.hpp"
+#include "FaceParameters.hpp"
 
 static wchar_t pluginName[] = L"MEF Single Line Bridge";
 static wchar_t pluginAuthor[] = L"MEFaces";
-static wchar_t pluginVersion[] = L"0.2.7";
+static wchar_t pluginVersion[] = L"0.2.8";
 SPI_PLUGINSIDE_SUPPORT(pluginName, pluginAuthor, pluginVersion, SPI_GAME_LE1, SPI_VERSION_ANY);
 SPI_PLUGINSIDE_POSTLOAD;
 SPI_PLUGINSIDE_SEQATTACH;
@@ -311,15 +312,34 @@ bool SameFaceValues(UMaterialInstanceConstant* a, UMaterialInstanceConstant* b) 
         SameValues(a->VectorParameterValues,b->VectorParameterValues,[](auto& x,auto& y){return memcmp(&x.ParameterValue,&y.ParameterValue,sizeof(x.ParameterValue))==0;}) &&
         SameValues(a->TextureParameterValues,b->TextureParameterValues,[](auto& x,auto& y){return x.ParameterValue==y.ParameterValue;});
 }
+bool CopyEffectiveFaceValues(UMaterialInstanceConstant* leaf, UMaterialInstanceConstant* bridge) {
+    std::vector<UMaterialInstanceConstant*> layers;
+    for(auto p=leaf;p;p=p->Parent ? p->Parent->Cast<UMaterialInstanceConstant>() : nullptr) {
+        if(!IsLiveInstance(p) || layers.size()>=8 || std::find(layers.begin(),layers.end(),p)!=layers.end())return false;
+        layers.push_back(p);
+    }
+    for(auto it=layers.rbegin();it!=layers.rend();++it)if(!EngineCalls::CopyFaceParameters(*it,bridge))return false;
+    auto check=[&](auto member,auto equal) {
+        using Array=std::remove_reference_t<decltype(bridge->*member)>;
+        using Value=std::remove_cvref_t<decltype((bridge->*member)(0))>;
+        std::vector<const Array*> values;
+        for(auto p:layers)values.push_back(&(p->*member));
+        return FaceParameters::Matches<Value>(values,bridge->*member,[](const auto& v){return v.ParameterName;},equal);
+    };
+    return check(&UMaterialInstanceConstant::FontParameterValues,[](auto& a,auto& b){return a.FontValue==b.FontValue && a.FontPage==b.FontPage;}) &&
+        check(&UMaterialInstanceConstant::ScalarParameterValues,[](auto& a,auto& b){return a.ParameterValue==b.ParameterValue;}) &&
+        check(&UMaterialInstanceConstant::VectorParameterValues,[](auto& a,auto& b){return !memcmp(&a.ParameterValue,&b.ParameterValue,sizeof(a.ParameterValue));}) &&
+        check(&UMaterialInstanceConstant::TextureParameterValues,[](auto& a,auto& b){return a.ParameterValue==b.ParameterValue;});
+}
 bool PrepareMaterials(ABioPawn* speaker, USkeletalMeshComponent* head) {
-    if (activeLine && *activeLine->pawn) {
+    if (activeLine && *activeLine->participantTag) {
         if (head->Owner!=speaker || head->Materials.Count()!=4 || head->m_aEffectsMaterialMICs.Count()!=4) {
             Log(L"REFUSED: unexpected NPC head ownership or material/cache slots."); return false;
         }
-        const bool joker=wcscmp(activeLine->actor,L"Joker")==0;
-        auto& saved=preparedFaces[joker ? 1 : 0];
         auto original=head->Materials(2);
         auto leaf=original ? original->Cast<UMaterialInstanceConstant>() : nullptr;
+        const bool joker=leaf && leaf->bHasStaticPermutationResource; // Template follows material capability, not character identity.
+        auto& saved=preparedFaces[wcscmp(activeLine->actor,L"Joker")==0 ? 1 : 0]; // Two scoped NPC diagnostic slots.
         auto material=EngineCalls::Material(head,2);
         auto displayed=material ? material->Cast<UMaterialInstanceConstant>() : nullptr;
         Log(L"FACE SOURCE actor=%ls original=%ls outer=%ls static=%d displayed=%ls cached=%d displayedStatic=%d parent=%ls",
@@ -327,9 +347,7 @@ bool PrepareMaterials(ABioPawn* speaker, USkeletalMeshComponent* head) {
             leaf ? leaf->bHasStaticPermutationResource : 0,displayed ? *displayed->GetFullPath() : L"null",
             displayed==head->m_aEffectsMaterialMICs(2),displayed ? displayed->bHasStaticPermutationResource : 0,
             displayed && displayed->Parent ? *displayed->Parent->GetFullPath() : L"null");
-        if (!IsLiveInstance(leaf) || leaf->Outer!=speaker || !leaf->Parent ||
-            !leaf->Parent->GetFullPath().Equals(L"BIOG_HMM_HED_PROMorph.Average.HMM_HED_PRONPC_Mat_1a") ||
-            !!leaf->bHasStaticPermutationResource!=joker) {
+        if (!IsLiveInstance(leaf) || leaf->Outer!=speaker || !IsLiveInstance(leaf->Parent)) {
             Log(L"REFUSED: unexpected pawn-owned face material or static permutation."); return false;
         }
         if (!IsLiveInstance(displayed) || displayed!=head->m_aEffectsMaterialMICs(2) || displayed==leaf ||
@@ -371,7 +389,7 @@ bool PrepareMaterials(ABioPawn* speaker, USkeletalMeshComponent* head) {
             Log(L"FACE PARAMETERS BEGIN actor=%ls",activeLine->actor);
             auto bridge=static_cast<UMaterialInstanceConstant*>(Construct(UMaterialInstanceConstant::StaticClass(),head,L"MEF_SL_FaceParameters"));
             if (!IsLiveInstance(bridge) || bridge->Outer!=head || bridge->bHasStaticPermutationResource ||
-                !EngineCalls::MaterialParent(bridge,replacement) || !EngineCalls::CopyFaceParameters(leaf,bridge) || !SameFaceValues(leaf,bridge)) {
+                !EngineCalls::MaterialParent(bridge,replacement) || !CopyEffectiveFaceValues(leaf,bridge)) {
                 Log(L"REFUSED: head-owned parameter copy failed; displayed material untouched."); return false;
             }
             Log(L"FACE PARAMETERS END actor=%ls matched=1",activeLine->actor);
@@ -402,7 +420,7 @@ bool PrepareMaterials(ABioPawn* speaker, USkeletalMeshComponent* head) {
             base ? base->bUsedWithMorphTargets : 0);
         if (!base || !base->bUsedWithMorphTargets) return false;
         // Preserve the established Shepard path; tighten NPC-only validation.
-        if (activeLine && *activeLine->pawn && !MorphUsageChain(material)) return false;
+        if (activeLine && *activeLine->participantTag && !MorphUsageChain(material)) return false;
     }
     return true;
 }
@@ -837,6 +855,54 @@ bool IsLiveInstance(UObject* object) {
     return r.Alive() && (static_cast<uint64_t>(object->ObjectFlags) & templates) == 0;
 }
 
+// Participant tags are authored conversation roles, independent of storage
+// packages. A resolved participant pointer, when present, must agree with the
+// live speaker. Exact voice/entry metadata and audio ownership remain gates.
+bool MatchesParticipant(UBioConversation* conversation, ABioPawn* speaker, const TestLine& line) {
+    if(!IsLiveInstance(speaker))return false;
+    bool role=false;
+    for(const auto& participant:conversation->m_SpeakerList) {
+        if(!participant.sSpeakerTag.ToString().Equals(line.participantTag))continue;
+        role=true;
+        if(participant.aSpeaker && participant.aSpeaker!=speaker)return false;
+    }
+    return CompatibleParticipant(line.participantTag,*speaker->Tag.ToString(),
+        speaker==conversation->m_pConversationPlayer,role,true);
+}
+
+struct RigCache {Ref mesh,set;const TestRig* rig=nullptr;bool player=false;};
+std::array<RigCache,8> rigCache;
+const TestRig* ResolveRig(ABioPawn* speaker, USkeletalMeshComponent* head, bool player) {
+    auto mesh=head->SkeletalMesh;
+    if(!IsLiveInstance(mesh))return nullptr;
+    for(auto& cached:rigCache) if(cached.mesh.As<USkeletalMesh>()==mesh && cached.player==player) {
+        if(!cached.rig)return nullptr;
+        auto set=cached.set.As<UMorphTargetSet>();
+        if(set && CompatibleRig(*cached.rig,player,mesh->RefSkeleton.Count(),mesh->LODModels.ArrayNum,
+            mesh,set->BaseSkelMesh,set->Targets.Count(),facialChannelCount))return cached.rig;
+        cached={};
+    }
+    RigCache* slot=nullptr;
+    for(auto& cached:rigCache)if(!cached.mesh.Alive()){slot=&cached;break;}
+    if(!slot){Log(L"HEAD UNSUPPORTED reason=rig-cache-capacity mesh=%ls",*mesh->GetFullPath());return nullptr;}
+    slot->mesh.Set(mesh);slot->player=player;
+    for(const auto& profile:TestRigs) {
+        if(profile.playerOnly!=player || profile.bones!=mesh->RefSkeleton.Count() ||
+            profile.lods!=static_cast<unsigned>(mesh->LODModels.ArrayNum))continue;
+        auto loaded=EngineCalls::LoadRig(speaker,profile.object);
+        auto set=loaded ? loaded->Cast<UMorphTargetSet>() : nullptr;
+        if(!IsLiveInstance(set) || !CompatibleRig(profile,player,mesh->RefSkeleton.Count(),mesh->LODModels.ArrayNum,
+            mesh,set->BaseSkelMesh,set->Targets.Count(),facialChannelCount))continue;
+        slot->set.Set(set);slot->rig=&profile;
+        Log(L"HEAD RIG RESOLVED participant=%ls mesh=%ls rig=%ls bones=%u lods=%d basePointerMatch=1",
+            *speaker->Tag.ToString(),*mesh->GetFullPath(),profile.object,mesh->RefSkeleton.Count(),mesh->LODModels.ArrayNum);
+        return &profile;
+    }
+    Log(L"HEAD UNSUPPORTED reason=no-authored-compatible-rig participant=%ls mesh=%ls bones=%u lods=%d; vanilla retained",
+        *speaker->Tag.ToString(),*mesh->GetFullPath(),mesh->RefSkeleton.Count(),mesh->LODModels.ArrayNum);
+    return nullptr;
+}
+
 bool Bind(ABioPawn* speaker, USkeletalMeshComponent* head, UAudioComponent* audio, const TestRig& rig) {
     if (!activeLine) {
         Log(L"REFUSED: no exact selected dialogue line.");return false;
@@ -934,12 +1000,12 @@ void Update(UGameEngine* engine) {
         head = speaker ? speaker->m_oHeadMesh : nullptr;
         for (auto const& test : SceneLines) {
             int text = 0, exportId = 0;
-            if (!*test.pawn) {
+            if (!*test.participantTag) {
                 if (conversation->m_ReplyList.Count() <= static_cast<unsigned>(test.entry) || speaker != conversation->m_pConversationPlayer) continue;
                 text = conversation->m_ReplyList(test.entry).srText;
                 exportId = conversation->m_ReplyList(test.entry).nExportID;
             } else {
-                if (!speaker || !speaker->GetFullPath().Equals(test.pawn) ||
+                if (!MatchesParticipant(conversation,speaker,test) ||
                     conversation->m_EntryList.Count() <= static_cast<unsigned>(test.entry)) continue;
                 text = conversation->m_EntryList(test.entry).srText;
                 exportId = conversation->m_EntryList(test.entry).nExportID;
@@ -948,7 +1014,7 @@ void Update(UGameEngine* engine) {
                 text, exportId, *conversation->m_pCurrentSound->GetFullPath())) { line = &test; break; }
         }
         if (line && IsLiveInstance(head) && head->SkeletalMesh) {
-            rig = MatchRig(*line, *head->SkeletalMesh->GetFullPath());
+            rig = ResolveRig(speaker,head,!*line->participantTag);
             audio = MatchingAudio(speaker, head, conversation, *line);
             eligible = rig && audio && head->PredictedLODLevel >= 0 && head->PredictedLODLevel <= rig->maxLOD;
         }

@@ -19,8 +19,7 @@ for name in ['Invoke','World','LoadRig','Playing','Init','SetTree','Material','L
 shader=root/'output/single-line-bridge/assets/MEFFaceShaders.pcc'
 assert sha(shader)==sha(prior/'Game/ME1/BioGame/CookedPCConsole/MEFFaceShaders.pcc')
 manifest=json.loads((root/'output/intro-a2f/scene-manifest.json').read_text())
-import os
-game=Path(os.environ['LE_INSTALL_DIR'])/'Game/ME1/BioGame'
+game=Path(r'E:\Games\EA\Mass Effect Legendary Edition\Game\ME1\BioGame')
 assert sha(game/'CookedPCConsole/BIOA_NOR10_01_DSG_LOC_INT.pcc').upper()==manifest['SourcePackageSHA256']
 assert sha(game/'Content/Packages/ISACT/nor10_joker.isb').upper()==manifest['AudioBankSHA256']
 sys.path.insert(0,str(root/'tools/native-analysis/python-libs'));import pefile
